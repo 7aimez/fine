@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fine Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #fafafa;
+            --surface: #ffffff;
+            --text: #0a0a0a;
+            --text-secondary: #737373;
+            --border: #e5e5e5;
+            --hover: #f5f5f5;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+        }
+
+        body.dark {
+            --bg: #0a0a0a;
+            --surface: #171717;
+            --text: #fafafa;
+            --text-secondary: #a3a3a3;
+            --border: #262626;
+            --hover: #1f1f1f;
+            --accent: #818cf8;
+            --accent-hover: #a5b4fc;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+            height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-size: 16px;
+        }
+
+        .icon-btn:hover {
+            background: var(--hover);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Clock */
+        .clock-section {
+            text-align: center;
+        }
+
+        .time {
+            font-size: 84px;
+            font-weight: 300;
+            color: var(--text);
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .date {
+            font-size: 18px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        /* Search Bar */
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .search-bar {
+            width: 100%;
+            height: 52px;
+            border-radius: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .search-bar:focus-within {
+            border-color: var(--accent);
+        }
+
+        .search-bar i {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            color: var(--text);
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Widgets Grid */
+        .widgets {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            width: 100%;
+        }
+
+        .widget {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .widget:hover {
+            border-color: var(--accent);
+        }
+
+        .widget-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Quick Links */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .link:hover {
+            background: var(--hover);
+        }
+
+        .link i {
+            color: var(--accent);
+            width: 18px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .link-text {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .link-actions {
+            display: none;
+            gap: 4px;
+        }
+
+        .link:hover .link-actions {
+            display: flex;
+        }
+
+        .link-action {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .link-action:hover {
+            background: var(--hover);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .add-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px dashed var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .add-link:hover {
+            background: var(--hover);
+            border-color: var(--accent);
+            color: var(--accent);
+            border-style: solid;
+        }
+
+        /* Notes */
+        .notes-area {
+            width: 100%;
+            min-height: 140px;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            font-size: 16px;
+            resize: vertical;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        .notes-area::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Weather */
+        .weather-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .weather-info {
+            flex: 1;
+        }
+
+        .weather-location {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .weather-temp {
+            font-size: 40px;
+            font-weight: 300;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .weather-condition {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .weather-icon {
+            font-size: 56px;
+            color: var(--accent);
+            opacity: 0.8;
+        }
+
+        /* Settings Panel */
+        .settings-panel {
+            position: fixed;
+            top: 0;
+            right: -360px;
+            width: 360px;
+            height: 100vh;
+            background: var(--bg);
+            border-left: 1px solid var(--border);
+            padding: 24px;
+            overflow-y: auto;
+            transition: right 0.3s ease;
+            z-index: 1000;
+        }
+
+        .settings-panel.open {
+            right: 0;
+        }
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .settings-header h2 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-label {
+            font-size: 14px;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* Toggle Switch */
+        .switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .switch.active {
+            background: var(--accent);
+        }
+
+        .switch::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: white;
+            top: 3px;
+            left: 3px;
+            transition: left 0.2s ease;
+        }
+
+        .switch.active::after {
+            left: 23px;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+            color: var(--text);
+            font-size: 16px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            width: 90%;
+            max-width: 420px;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--hover);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        /* Background Layer */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-secondary);
+        }
+
+        @media (max-width: 900px) {
+            .time {
+                font-size: 64px;
+            }
+
+            .date {
+                font-size: 16px;
+            }
+
+            .widgets {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                overflow-y: auto;
+                height: auto;
+                min-height: 100vh;
+            }
+
+            body {
+                overflow: auto;
+            }
+
+            .settings-panel {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-layer" id="bgLayer"></div>
+
+    <div class="container">
+        <div class="header">
+            <button class="icon-btn" id="themeToggle" onclick="toggleTheme()">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="icon-btn" onclick="toggleSettings()">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+
+        <div class="main">
+            <div class="clock-section">
+                <div class="time" id="time"></div>
+                <div class="date" id="date"></div>
+            </div>
+
+            <div class="search-container">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search or enter URL" id="searchInput" >
+                </div>
+            </div>
+
+            <div class="widgets">
+                <div class="widget">
+                    <div class="widget-title">Quick Links</div>
+                    <div class="links" id="linksList"></div>
+                    <button class="add-link" onclick="showAddLinkModal()">
+                        <i class="fas fa-plus"></i>
+                        <span>Add Link</span>
+                    </button>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-title">Weather</div>
+                    <div class="weather-content">
+                        <div class="weather-info">
+                            <div class="weather-location" id="location">San Francisco</div>
+                            <div class="weather-temp" id="temp">72°</div>
+                            <div class="weather-condition" id="condition">Partly Cloudy</div>
+                        </div>
+                        <i class="weather-icon fas fa-cloud-sun"></i>
+                    </div>
+                </div>
+
+                <div class="widget">
+                    <div class="widget-title">Notes</div>
+                    <textarea class="notes-area" id="notes" placeholder="Quick notes..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <h2>Settings</h2>
+            <button class="icon-btn" onclick="toggleSettings()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Appearance</div>
+            <div class="setting-item">
+                <span class="setting-label">Dark Mode</span>
+                <div class="switch" id="darkModeSwitch" onclick="toggleTheme()"></div>
+            </div>
+            <div class="setting-item">
+                <span class="setting-label">24-hour Time</span>
+                <div class="switch" id="timeFormatSwitch" onclick="toggleTimeFormat()"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Background</div>
+            <div class="input-group">
+                <label>Custom Image</label>
+                <input type="file" accept="image/*" onchange="uploadBg(event)">
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Link Modal -->
+    <div class="modal" id="linkModal">
+        <div class="modal-content">
+            <div class="modal-title" id="modalTitle">Add Link</div>
+            <div class="input-group">
+                <label>Name</label>
+                <input type="text" id="linkName" placeholder="GitHub">
+            </div>
+            <div class="input-group">
+                <label>URL</label>
+                <input type="text" id="linkUrl" placeholder="https://github.com">
+            </div>
+            <div class="input-group">
+                <label>Icon</label>
+                <input type="text" id="linkIcon" placeholder="fab fa-github">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveLink()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let config = {
+            darkMode: false,
+            time24: false,
+            links: [
+                { name: 'GitHub', url: 'https://github.com', icon: 'fab fa-github' },
+                { name: 'YouTube', url: 'https://youtube.com', icon: 'fab fa-youtube' },
+                { name: 'Reddit', url: 'https://reddit.com', icon: 'fab fa-reddit' },
+                { name: 'Twitter', url: 'https://twitter.com', icon: 'fab fa-twitter' }
+            ],
+            notes: '',
+            customBg: null
+        };
+
+        let editingIndex = -1;
+
+        function init() {
+            loadConfig();
+            updateClock();
+            setInterval(updateClock, 1000);
+            renderLinks();
+
+            document.getElementById('notes').value = config.notes;
+            document.getElementById('notes').addEventListener('input', () => {
+                config.notes = document.getElementById('notes').value;
+                saveConfig();
+            });
+
+            document.getElementById('searchInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const query = e.target.value;
+                    if (query) {
+                        const isUrl = query.includes('.') && !query.includes(' ');
+                        const url = isUrl ?
+                            (query.startsWith('http') ? query : 'https://' + query) :
+                            'https://www.google.com/search?q=' + encodeURIComponent(query);
+                        window.open(url, '_blank');
+                        e.target.value = '';
+                    }
+                }
+            });
+
+            if (!window.location.hash) {
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                config.darkMode = prefersDark;
+                applyTheme();
+            }
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const hours = config.time24 ? now.getHours() : now.getHours() % 12 || 12;
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = config.time24 ? '' : (now.getHours() >= 12 ? ' PM' : ' AM');
+
+            document.getElementById('time').textContent = hours + ':' + minutes + ampm;
+
+            const options = { weekday: 'long', month: 'long', day: 'numeric' };
+            document.getElementById('date').textContent = now.toLocaleDateString('en-US', options);
+        }
+
+        function toggleTheme() {
+            config.darkMode = !config.darkMode;
+            applyTheme();
+            saveConfig();
+        }
+
+        function applyTheme() {
+            if (config.darkMode) {
+                document.body.classList.add('dark');
+                document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+                document.getElementById('darkModeSwitch').classList.add('active');
+            } else {
+                document.body.classList.remove('dark');
+                document.getElementById('themeToggle').innerHTML = '<i class="fas fa-moon"></i>';
+                document.getElementById('darkModeSwitch').classList.remove('active');
+            }
+        }
+
+        function toggleTimeFormat() {
+            config.time24 = !config.time24;
+            const toggle = document.getElementById('timeFormatSwitch');
+            if (config.time24) {
+                toggle.classList.add('active');
+            } else {
+                toggle.classList.remove('active');
+            }
+            updateClock();
+            saveConfig();
+        }
+
+        function renderLinks() {
+            const list = document.getElementById('linksList');
+            list.innerHTML = config.links.map((link, i) => `
+                <a href="${link.url}" class="link" target="_blank">
+                    <i class="${link.icon}"></i>
+                    <span class="link-text">${link.name}</span>
+                    <div class="link-actions">
+                        <button class="link-action" onclick="event.preventDefault(); editLink(${i})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="link-action" onclick="event.preventDefault(); deleteLink(${i})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </a>
+            `).join('');
+        }
+
+        function showAddLinkModal() {
+            editingIndex = -1;
+            document.getElementById('modalTitle').textContent = 'Add Link';
+            document.getElementById('linkName').value = '';
+            document.getElementById('linkUrl').value = '';
+            document.getElementById('linkIcon').value = '';
+            document.getElementById('linkModal').classList.add('active');
+        }
+
+        function editLink(index) {
+            editingIndex = index;
+            const link = config.links[index];
+            document.getElementById('modalTitle').textContent = 'Edit Link';
+            document.getElementById('linkName').value = link.name;
+            document.getElementById('linkUrl').value = link.url;
+            document.getElementById('linkIcon').value = link.icon;
+            document.getElementById('linkModal').classList.add('active');
+        }
+
+        function deleteLink(index) {
+            config.links.splice(index, 1);
+            saveConfig();
+            renderLinks();
+        }
+
+        function saveLink() {
+            const name = document.getElementById('linkName').value;
+            const url = document.getElementById('linkUrl').value;
+            const icon = document.getElementById('linkIcon').value || 'fas fa-link';
+
+            if (!name || !url) return;
+
+            if (editingIndex >= 0) {
+                config.links[editingIndex] = { name, url, icon };
+            } else {
+                config.links.push({ name, url, icon });
+            }
+
+            saveConfig();
+            renderLinks();
+            closeModal();
+        }
+
+        function closeModal() {
+            document.getElementById('linkModal').classList.remove('active');
+        }
+
+        function toggleSettings() {
+            document.getElementById('settingsPanel').classList.toggle('open');
+        }
+
+        function uploadBg(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('bgLayer').style.backgroundImage = `url(${e.target.result})`;
+                    config.customBg = e.target.result;
+                    saveConfig();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveConfig() {
+            try {
+                window.location.hash = btoa(JSON.stringify(config));
+            } catch (e) {}
+        }
+
+        function loadConfig() {
+            try {
+                if (window.location.hash) {
+                    const loaded = JSON.parse(atob(window.location.hash.substring(1)));
+                    config = { ...config, ...loaded };
+                    applyTheme();
+                    if (config.time24) {
+                        document.getElementById('timeFormatSwitch').classList.add('active');
+                    }
+                    if (config.customBg) {
+                        document.getElementById('bgLayer').style.backgroundImage = `url(${config.customBg})`;
+                    }
+                }
+            } catch (e) {}
+        }
+
+        init();
+    </script>
+</body>
+</html>
+
