@@ -19,4 +19,8 @@ The new tab page for everyone. Explore custom themes, an innovative layout desig
 
 #### Tool
 
-#### 
+The enterprise tool collective. Use convertors, notes, calculators and more.
+
+#### Extra
+
+Extensive utilities and more.
