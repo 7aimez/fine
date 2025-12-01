@@ -191,27 +191,9 @@
             }
         });
 
-        // Configuration
-        const REDIRECT_DELAY = 1000;
-        const FIRST_TIME_KEY = 'hasVisited';
-
-        // Check if first time visitor
-        const hasVisited = localStorage.getItem(FIRST_TIME_KEY);
-
-        let redirectUrl;
-        if (!hasVisited) {
-            // First time - redirect to welcome page
-            redirectUrl = 'welcome.html';
-            // Mark as visited
-            localStorage.setItem(FIRST_TIME_KEY, 'true');
-        } else {
-            // Returning user - redirect to app
-            redirectUrl = 'app/';
-        }
-
         // Perform redirect
         setTimeout(() => {
-            window.location.href = redirectUrl;
+            window.location.href = 'welcome.html';
         }, 1000);
     </script>
 </body>
