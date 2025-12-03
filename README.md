@@ -1,4 +1,6 @@
-<a href= <p align="center"><img width="300" height="300" alt="image" src="https://github.com/user-attachments/assets/afc86dbf-c52f-4b16-9ff4-cb8c41b3a97b" /></p>
+<a href="https://fine-app.pages.dev">
+  <p align="center"><img width="300" height="300" alt="image" src="https://github.com/user-attachments/assets/afc86dbf-c52f-4b16-9ff4-cb8c41b3a97b" /></p>
+</a>
 <p align="center"><b><p align="center">🔧 The world needs better tools</p></b></p>
 
 ---
